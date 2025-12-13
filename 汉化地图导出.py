@@ -36,7 +36,7 @@ def generate_maps_from_csv(csv_file, materials_folder, coordinates_file, constru
     normal_construct_dict = {}   # 其他建筑
 
     # 大空洞底层建筑坐标    
-    underground_coords = {1160, 1159, 1107, 1110, 1153, 1175, 1174}
+    underground_coords = {1160, 1159, 1107, 1110, 1153, 1175, 1174, 1213}
 
     # 大空洞神授塔BOSS坐标
     floor_prefix = {
@@ -127,14 +127,17 @@ def generate_maps_from_csv(csv_file, materials_folder, coordinates_file, constru
     
     print("开始生成图片...")
     for idx, row in data_df.iterrows():
-        # 跳过前 435 行
-        #if idx < 435 or idx > 435:
-        #    continue
+        # 调试用-跳过前 435 行
+        if idx < 435:
+            continue
+
+        # 调试用-缩放倍数，
+        tran = 5
 
         ID = row["ID"]
         special_value = row['Special']
         
-        # 只生成大空洞
+        # 调试用-只生成大空洞
         if special_value != 4:
             continue
         
@@ -537,7 +540,7 @@ def generate_maps_from_csv(csv_file, materials_folder, coordinates_file, constru
         
         # 缩放图片
         original_width, original_height = background.size
-        new_size = (original_width // 1, original_height // 1)
+        new_size = (original_width // tran, original_height // tran)
         resized_background = background.resize(new_size, Image.Resampling.LANCZOS)
         
         # 保存图片
